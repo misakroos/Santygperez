@@ -119,16 +119,10 @@ nav.up{background:rgba(9,9,11,0.85);backdrop-filter:blur(24px) saturate(1.5);bor
   padding:110px 0 72px;
   position:relative;overflow:hidden;
 }
-#hero::before{
-  content:'';position:absolute;inset:0;
-  background-image:linear-gradient(rgba(59,130,246,0.028) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(59,130,246,0.028) 1px,transparent 1px);
-  background-size:52px 52px;
-  mask-image:radial-gradient(ellipse 100% 65% at 50% 0%,black 0%,transparent 75%);
-}
+
 /* subtle glow */
-#hero::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 70% 40%,rgba(59,130,246,0.055) 0%,transparent 65%);pointer-events:none}
-.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+
+.hero-grid{display:grid;grid-template-columns:1fr;max-width:680px}
 .hero-name{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,5.8rem);font-weight:700;line-height:.9;letter-spacing:-0.04em;color:#E2E4EC;margin-bottom:24px}
 .hero-name .ghost{display:block;color:transparent;-webkit-text-stroke:1.5px rgba(226,228,236,0.14);font-weight:300;font-style:italic}
 .hero-sub{font-size:clamp(.95rem,1.4vw,1.1rem);color:rgba(226,228,236,0.38);font-weight:300;line-height:1.75;margin-bottom:36px;max-width:400px}
@@ -144,25 +138,25 @@ nav.up{background:rgba(9,9,11,0.85);backdrop-filter:blur(24px) saturate(1.5);bor
 .hstn em{color:var(--ac-blue);font-style:normal}
 .hstl{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(226,228,236,0.22);margin-top:4px}
 /* DISC */
-.disc-wrap{position:relative;height:420px;display:flex;align-items:center;justify-content:center}
-.disc{position:relative;will-change:transform;transform:translateZ(0);width:290px;height:290px;border-radius:50%;background:conic-gradient(from 0deg,#090A0C 0 25deg,#12141A 25deg 55deg,#0f1118 55deg 90deg,#090A0C 90deg 140deg,#12141A 140deg 180deg,#0c0e14 180deg 230deg,#090A0C 230deg 290deg,#12141A 290deg 325deg,#090A0C 325deg 360deg);border:1px solid rgba(59,130,246,0.12);animation:dspin 26s linear infinite;box-shadow:0 0 100px rgba(59,130,246,0.07),inset 0 0 80px rgba(0,0,0,.5)}
-.disc::before{content:'';position:absolute;inset:22px;border-radius:50%;border:1px solid rgba(59,130,246,0.07)}
-.disc::after{content:'';position:absolute;inset:44px;border-radius:50%;border:1px solid rgba(59,130,246,0.05)}
-@keyframes dspin{to{transform:rotate(360deg) translateZ(0)}}
-.disc-ticks{position:absolute;transform:translateZ(0);top:50%;left:50%;width:300px;height:300px;transform:translate(-50%,-50%);border-radius:50%;background:repeating-conic-gradient(rgba(59,130,246,.2) 0deg .7deg,transparent .7deg 10deg);pointer-events:none}
-.disc-labels{position:absolute;will-change:transform;top:50%;left:50%;width:365px;height:365px;transform:translate(-50%,-50%);animation:dlrev 26s linear infinite}
-@keyframes dlrev{to{transform:translate(-50%,-50%) rotate(-360deg) translateZ(0)}}
-.dl{position:absolute;font-size:.54rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(226,228,236,.22);white-space:nowrap}
-.dl1{top:0;left:50%;transform:translateX(-50%)}
-.dl2{right:0;top:50%;transform:translateY(-50%)}
-.dl3{bottom:0;left:50%;transform:translateX(-50%)}
-.dl4{left:0;top:50%;transform:translateY(-50%)}
-.disc-c{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:68px;height:68px;border-radius:50%;background:#09090B;border:1px solid rgba(59,130,246,.2);display:flex;align-items:center;justify-content:center;z-index:2}
-.disc-cd{width:16px;height:16px;border-radius:50%;background:var(--ac-red);box-shadow:0 0 16px rgba(232,54,42,.6);animation:hb 2.2s ease-in-out infinite}
-@keyframes hb{0%,100%{transform:scale(1)}50%{transform:scale(.82)}}
-.disc-tag{position:absolute;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-blue2);background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);padding:4px 10px;border-radius:100px;white-space:nowrap}
-.dt1{top:8px;right:-4px}.dt2{bottom:28px;right:-14px}.dt3{bottom:56px;left:-14px}.dt4{top:36px;left:-6px}
-@media(max-width:800px){.hero-grid{grid-template-columns:1fr}.disc-wrap{display:none}}
+
+
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+50%{transform:scale(.82)}}
+
+
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
 
 /* ══════════════════════════════════════
    ② ABOUT  bg:#0F1014  accent:ORANGE
@@ -426,15 +420,7 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
           <div class="hst"><div class="hstn">8<em>+</em></div><div class="hstl">Certif.</div></div>
           <div class="hst"><div class="hstn">3<em>D</em></div><div class="hstl">Modelado</div></div>
         </div>
-      </div>
-      <div class="disc-wrap rv" aria-hidden="true">
-        <div class="disc"></div>
-        <div class="disc-ticks"></div>
-        <div class="disc-labels">
-          <span class="dl dl1">SolidWorks</span><span class="dl dl2">CATIA</span>
-          <span class="dl dl3">Diseño Industrial</span><span class="dl dl4">Rhino 3D</span>
-        </div>
-        <div class="disc-c"><div class="disc-cd"></div></div>
+      </div></div>
         <span class="disc-tag dt1">CNC</span>
         <span class="disc-tag dt2">Prototipado 3D</span>
         <span class="disc-tag dt3">Ergonomía</span>
