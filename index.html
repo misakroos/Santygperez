@@ -377,6 +377,24 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
 .fl a{font-size:.65rem;color:rgba(226,228,236,.18);text-decoration:none;letter-spacing:.06em;transition:color 140ms}
 .fl a:hover{color:rgba(226,228,236,.45)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+.services{padding:110px 0;background:#0d1017;position:relative;overflow:hidden}
+.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
+.service-card{padding:26px;border:1px solid rgba(96,165,250,.14);background:rgba(255,255,255,.025);border-radius:12px}
+.service-card b{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:12px 0 9px;color:#f0f2f8}
+.service-card p{color:rgba(226,228,236,.48);font-size:.84rem;line-height:1.65}
+.service-card span{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:#60a5fa;font-weight:700}
+.quote{padding:110px 0;background:#10131b;position:relative;overflow:hidden}
+.quote-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
+.quote-copy p{color:rgba(226,228,236,.48);line-height:1.75;margin-top:18px;max-width:470px}
+.brief-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:26px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);border-radius:12px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(226,228,236,.4);font-weight:700}
+.field input,.field select,.field textarea{width:100%;background:#0b0d13;color:#e2e4ec;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px;font:inherit;outline:none}
+.field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#3b82f6}
+.form-note{grid-column:1/-1;font-size:.68rem;line-height:1.5;color:rgba(226,228,236,.34)}
+.form-actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.form-status{font-size:.75rem;color:#86efac}
+@media(max-width:850px){.service-grid{grid-template-columns:1fr}.quote-layout{grid-template-columns:1fr;gap:30px}}
+@media(max-width:560px){.brief-form{grid-template-columns:1fr;padding:18px}.field{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -394,6 +412,7 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
     </div>
     <ul class="nlinks">
       <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#services">Servicios</a></li>
       <li><a href="#projects">Proyectos</a></li>
       <li><a href="#skills">Aptitudes</a></li>
       <li><a href="#experience">Experiencia</a></li>
@@ -412,7 +431,7 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
         <h1 class="hero-name rv">Santiago<br>Pérez<br><span class="ghost">Agüero</span></h1>
         <p class="hero-sub rv"><strong>Proyectista 3D · Ingeniería de producto.</strong><br>SolidWorks · CATIA · Rhino · CNC.<br>San Juan, Argentina — disponible remoto.</p>
         <div class="hbtns rv">
-          <a href="#contact" class="btn-red">Contactar →</a>
+          <a href="#quote" class="btn-red">Pedir presupuesto →</a>
           <a href="#projects" class="btn-ghost">Ver proyectos</a>
         </div>
         <div class="hstats rv">
@@ -420,7 +439,6 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
           <div class="hst"><div class="hstn">8<em>+</em></div><div class="hstl">Certif.</div></div>
           <div class="hst"><div class="hstn">3<em>D</em></div><div class="hstl">Modelado</div></div>
         </div>
-      </div></div>
       </div>
     </div>
   </div>
@@ -474,7 +492,23 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
   </div>
 </section>
 
-<!-- ③ PROJECTS -->
+<section id="services" class="services">
+  <div class="sn" aria-hidden="true">03</div>
+  <div class="W">
+    <div class="ey ey-blue rv">Servicios</div>
+    <h2 class="sec-title sec-title-blue rv" style="color:#E2E4EC">De la idea a un resultado <em>fabricable</em></h2>
+    <div class="service-grid rv">
+      <article class="service-card"><span>01 · Definición</span><b>Diseño conceptual</b><p>Transformo una necesidad o idea inicial en propuestas concretas, con criterios de uso, forma, materiales y fabricación.</p></article>
+      <article class="service-card"><span>02 · Desarrollo</span><b>Modelado 3D</b><p>Creo modelos digitales para validar, presentar, imprimir o preparar un producto antes de fabricarlo.</p></article>
+      <article class="service-card"><span>03 · Producción</span><b>Ingeniería y planos</b><p>Planos de conjunto y piezas, archivos CNC, listas de materiales y documentación técnica según el alcance.</p></article>
+      <article class="service-card"><span>04 · Prototipo</span><b>Impresión 3D</b><p>Preparación e impresión de piezas propias o modelos existentes, con orientación sobre material y terminación.</p></article>
+      <article class="service-card"><span>05 · Industria</span><b>Soluciones metalúrgicas</b><p>Desarrollo de estructuras, dispositivos y piezas técnicas con experiencia en fabricación y montaje.</p></article>
+      <article class="service-card"><span>06 · Flexible</span><b>Servicio a medida</b><p>Si el proyecto combina materiales, electrónica o procesos, definimos juntos el alcance y los entregables.</p></article>
+    </div>
+  </div>
+</section>
+
+<!-- ④ PROJECTS -->
 <section id="projects">
   <div class="sn" aria-hidden="true">03</div>
   <div class="W">
@@ -668,7 +702,27 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
   </div>
 </section>
 
-<!-- ⑧ CONTACT -->
+<section id="quote" class="quote">
+  <div class="sn" aria-hidden="true">08</div>
+  <div class="W quote-layout">
+    <div class="quote-copy rv">
+      <div class="ey ey-blue">Presupuesto</div>
+      <h2 class="sec-title sec-title-blue" style="color:#E2E4EC">Contame qué necesitás <em>resolver</em></h2>
+      <p>No hace falta tener conocimientos técnicos. Elegí el servicio más cercano a tu idea y completá los datos básicos; después definimos juntos el alcance.</p>
+    </div>
+    <form class="brief-form rv" id="briefForm">
+      <div class="field"><label for="clientName">Nombre</label><input id="clientName" name="name" autocomplete="name" required></div>
+      <div class="field"><label for="clientContact">Email o WhatsApp</label><input id="clientContact" name="contact" required></div>
+      <div class="field"><label for="service">Servicio</label><select id="service" name="service" required><option value="">Elegir una opción</option><option>Diseño conceptual</option><option>Modelado 3D</option><option>Ingeniería y planos</option><option>Impresión 3D</option><option>Solución metalúrgica</option><option>Servicio a medida</option></select></div>
+      <div class="field"><label for="deadline">Fecha estimada</label><input id="deadline" name="deadline" type="date"></div>
+      <div class="field full"><label for="idea">Idea o problema a resolver</label><textarea id="idea" name="idea" placeholder="Contá qué querés hacer, para qué se usará y qué material o medidas conocés." required></textarea></div>
+      <div class="form-actions"><button class="btn-red" type="submit">Preparar solicitud →</button><span class="form-status" id="formStatus" role="status"></span></div>
+      <p class="form-note">Esta versión inicial guarda la solicitud en este dispositivo y abre WhatsApp con el resumen listo para enviar. Para alertas automáticas y panel multiusuario hará falta conectar un backend.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ⑨ CONTACT -->
 <section id="contact">
   <div class="sn" aria-hidden="true">07</div>
   <div class="W">
@@ -677,7 +731,7 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
       <div>
         <h2 class="ct-big">Hablemos<br><em>de tu proyecto.</em></h2>
         <p class="ct-sub">Disponible para modelado 3D, ingeniería de producto, diseño industrial y diseño sostenible.</p>
-        <div class="avpill"><div class="avdot"></div>Disponible para proyectos · 2025</div>
+        <div class="avpill"><div class="avdot"></div>Disponible para proyectos · 2026</div>
       </div>
       <div>
         <div class="clinks">
@@ -697,7 +751,7 @@ footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22p
 
 <footer>
   <div class="W fi">
-    <span class="fc">© 2025 Santiago Pérez Agüero</span>
+    <span class="fc">© 2026 Santiago Pérez Agüero</span>
     <div class="fl">
       <a href="https://www.linkedin.com/in/santygp" target="_blank" rel="noopener">LinkedIn</a>
       <a href="mailto:santyg.perez@hotmail.com">Email</a>
@@ -768,6 +822,19 @@ document.querySelectorAll('.pcard-head').forEach(head=>{
     if(!open){ card.classList.add('open'); head.setAttribute('aria-expanded','true'); }
   });
   head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); head.click(); } });
+});
+
+const briefForm=document.getElementById('briefForm');
+briefForm.addEventListener('submit',e=>{
+  e.preventDefault();
+  const data=Object.fromEntries(new FormData(briefForm));
+  const request={...data,id:Date.now(),createdAt:new Date().toISOString(),status:'No tomado'};
+  const requests=JSON.parse(localStorage.getItem('spaRequests')||'[]');
+  requests.unshift(request);
+  localStorage.setItem('spaRequests',JSON.stringify(requests));
+  const message=`Hola Santiago, soy ${data.name}.%0A%0AServicio: ${data.service}%0AFecha estimada: ${data.deadline||'A definir'}%0AContacto: ${data.contact}%0A%0AIdea: ${data.idea}`;
+  document.getElementById('formStatus').textContent='Solicitud preparada. Abriendo WhatsApp…';
+  window.open(`https://wa.me/5492646303313?text=${encodeURI(message)}`,'_blank','noopener');
 });
 
 </script>
