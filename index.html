@@ -1,12 +1,383 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santiago Pérez Agüero — Diseñador Industrial</title>
+<link rel="preload" href="https://fonts.gstatic.com/s/spacegrotesk/v16/V8mQoQDjQSkFtoMM3T6r8E7mF71Q-gozFl_RiX4.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'"><noscript><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"></noscript>
+<style>
 
+/* PERF: paint offscreen sections lazily */
+#about,#projects,#skills,#experience,#renders,#education,#contact{content-visibility:auto;contain-intrinsic-size:0 900px}
+*{-webkit-tap-highlight-color:transparent;text-rendering:optimizeSpeed}
+
+/*
+  PALETA DE SECCIONES — todo oscuro, acentos cambian:
+  01 HERO        #09090B  negro puro       — acento AZUL
+  02 ABOUT       #0F1014  negro cálido     — acento NARANJA
+  03 PROJECTS    #111318  gris muy oscuro  — acento AZUL
+  04 SKILLS      #131713  gris oscuro verde— acento VERDE
+  05 EXPERIENCE  #0E1614  verde muy oscuro — acento VERDE MENTA
+  06 RENDERS     #141210  gris oscuro cálido— acento NARANJA
+  07 EDUCATION   #0F1115  gris azulado     — acento AZUL
+  08 CONTACT     #09090B  negro puro       — acento ROJO
+*/
+:root{
+  --ac-blue:#3B82F6;
+  --ac-blue2:#60A5FA;
+  --ac-orange:#E8722A;
+  --ac-orange2:#F59D5E;
+  --ac-green:#4ADE80;
+  --ac-green2:#86EFAC;
+  --ac-mint:#34D399;
+  --ac-red:#E8362A;
+  --eout:cubic-bezier(0.19,1,0.22,1);
+  --espr:cubic-bezier(0.34,1.56,0.64,1);
+  --esm:cubic-bezier(0.4,0,0.2,1);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:#09090B;
+  color:#E2E4EC;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  cursor:none;
+}
+a,button,[role=button]{cursor:none;text-decoration:none}
+
+
+/* PERFORMANCE */
+#about,#projects,#skills,#experience,#renders,#education,#contact{
+  content-visibility:auto;
+  contain-intrinsic-size:0 800px;
+}
+img,svg{max-width:100%;height:auto}
+*{-webkit-tap-highlight-color:transparent}
+
+/* ── CURSOR ── */
+#C{position:fixed;top:0;left:0;pointer-events:none;z-index:9999;transform:translate(-50%,-50%) translateZ(0);will-change:transform}
+#CR{width:32px;height:32px;border:1.5px solid rgba(9,9,11,0.88);border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);transition:width 200ms var(--esm),height 200ms var(--esm)}
+#CD{width:8px;height:8px;background:var(--ac-red);border-radius:50%;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);box-shadow:0 0 8px rgba(232,54,42,0.5);transition:width 150ms var(--espr),height 150ms var(--espr)}
+body.hov #CR{width:46px;height:46px}
+body.hov #CD{width:5px;height:5px}
+
+/* ── PROGRESS ── */
+#P{position:fixed;top:0;left:0;height:2px;background:var(--ac-red);z-index:8000;width:0%;box-shadow:0 0 6px rgba(232,54,42,.4)}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:700;padding:16px 0;transition:background 350ms var(--esm),border-color 350ms;border-bottom:1px solid transparent}
+nav.up{background:rgba(9,9,11,0.85);backdrop-filter:blur(24px) saturate(1.5);border-color:rgba(255,255,255,0.06)}
+.nw{display:flex;align-items:center;justify-content:space-between;max-width:1100px;margin:0 auto;padding:0 32px}
+.logo{font-family:'Space Grotesk',sans-serif;font-size:.75rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#E2E4EC}
+.logo em{color:var(--ac-red);font-style:normal}
+.ndots{display:flex;gap:6px;align-items:center}
+.nd{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.12);transition:background 200ms,transform 220ms var(--espr)}
+.nd.on{background:var(--ac-red);transform:scale(1.35)}
+.nlinks{display:flex;gap:28px;list-style:none}
+.nlinks a{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,0.35);text-decoration:none;transition:color 150ms;position:relative}
+.nlinks a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1px;background:var(--ac-red);transform:scaleX(0);transform-origin:left;transition:transform 250ms var(--eout)}
+.nlinks a:hover{color:#E2E4EC}
+.nlinks a:hover::after{transform:scaleX(1)}
+@media(max-width:640px){.nlinks{display:none}}
+
+.W{width:100%;max-width:1100px;margin:0 auto;padding:0 32px;position:relative;z-index:2}
+
+/* REVEAL */
+.rv{opacity:0;transform:translate3d(0,24px,0);transition:opacity 600ms var(--eout),transform 600ms var(--eout)}
+.rv.in{opacity:1;transform:translate3d(0,0,0)}
+
+/* SECTION BIG NUM */
+.sn{position:absolute;right:-0.04em;top:50%;transform:translateY(-50%);font-family:'Space Grotesk',sans-serif;font-size:22vw;font-weight:800;letter-spacing:-0.06em;color:rgba(255,255,255,0.014);user-select:none;pointer-events:none;line-height:1;z-index:0}
+
+/* EYEBROW — color set per section via class */
+.ey{display:inline-flex;align-items:center;gap:10px;font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:20px}
+.ey::before{content:'';display:block;width:22px;height:1px;opacity:.5}
+.ey-blue{color:var(--ac-blue2)}.ey-blue::before{background:var(--ac-blue2)}
+.ey-orange{color:var(--ac-orange2)}.ey-orange::before{background:var(--ac-orange2)}
+.ey-green{color:var(--ac-green2)}.ey-green::before{background:var(--ac-green2)}
+.ey-mint{color:var(--ac-mint)}.ey-mint::before{background:var(--ac-mint)}
+.ey-red{color:var(--ac-red)}.ey-red::before{background:var(--ac-red)}
+
+/* SECTION TITLES */
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;letter-spacing:-0.04em;line-height:.95;margin-bottom:48px}
+.sec-title em{font-style:italic;font-weight:300}
+
+/* ══════════════════════════════════════
+   ① HERO  bg:#09090B  accent:BLUE
+══════════════════════════════════════ */
+#hero{
+  background:#09090B;
+  min-height:100svh;
+  display:flex;align-items:center;
+  padding:110px 0 72px;
+  position:relative;overflow:hidden;
+}
+
+/* subtle glow */
+
+.hero-grid{display:grid;grid-template-columns:1fr;max-width:680px}
+.hero-name{font-family:'Space Grotesk',sans-serif;font-size:clamp(3rem,7vw,5.8rem);font-weight:700;line-height:.9;letter-spacing:-0.04em;color:#E2E4EC;margin-bottom:24px}
+.hero-name .ghost{display:block;color:transparent;-webkit-text-stroke:1.5px rgba(226,228,236,0.14);font-weight:300;font-style:italic}
+.hero-sub{font-size:clamp(.95rem,1.4vw,1.1rem);color:rgba(226,228,236,0.38);font-weight:300;line-height:1.75;margin-bottom:36px;max-width:400px}
+.hero-sub strong{color:#E2E4EC;font-weight:500}
+.hbtns{display:flex;gap:10px;flex-wrap:wrap}
+.btn-red{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:13px 26px;border-radius:6px;background:var(--ac-red);color:#fff;border:none;transition:transform 140ms var(--espr),box-shadow 140ms}
+.btn-red:hover{transform:scale(1.03) translateY(-1px);box-shadow:0 8px 24px rgba(232,54,42,.4)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:13px 26px;border-radius:6px;background:transparent;color:rgba(226,228,236,0.38);border:1px solid rgba(255,255,255,0.08);transition:color 150ms,border-color 150ms,transform 140ms}
+.btn-ghost:hover{color:#E2E4EC;border-color:rgba(59,130,246,0.35);transform:translateY(-1px)}
+.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.06);border-radius:8px;overflow:hidden;margin-top:32px}
+.hst{background:rgba(255,255,255,0.025);padding:18px 16px;text-align:center}
+.hstn{font-family:'Space Grotesk',sans-serif;font-size:1.75rem;font-weight:800;letter-spacing:-0.04em;line-height:1;color:#E2E4EC}
+.hstn em{color:var(--ac-blue);font-style:normal}
+.hstl{font-size:.58rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(226,228,236,0.22);margin-top:4px}
+/* DISC */
+
+
+
+
+}
+
+
+}
+
+
+
+
+
+
+
+50%{transform:scale(.82)}}
+
+
+@media(max-width:800px){.hero-grid{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════
+   ② ABOUT  bg:#0F1014  accent:ORANGE
+══════════════════════════════════════ */
+#about{
+  background:#0F1014;
+  padding:96px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#about::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 90% 30%,rgba(232,114,42,0.06) 0%,transparent 65%);pointer-events:none}
+.about-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:80px;align-items:start}
+.about-sticky{position:sticky;top:120px}
+.about-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:700;letter-spacing:-0.04em;line-height:.95;color:#E2E4EC;margin-bottom:24px}
+.about-title em{display:block;font-style:italic;font-weight:300;color:rgba(226,228,236,.3)}
+/* render box */
+.about-render{
+  margin-top:28px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(232,114,42,0.12);
+  border-radius:10px;overflow:hidden;
+  aspect-ratio:4/3;
+  display:flex;align-items:center;justify-content:center;
+  position:relative;
+}
+.about-render-lbl{position:absolute;bottom:10px;left:14px;font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(226,228,236,.25)}
+.about-body p{font-size:1.0625rem;color:rgba(226,228,236,.45);line-height:1.85;margin-bottom:20px}
+.about-body strong{color:#E2E4EC;font-weight:500}
+.about-pull{margin-top:28px;padding:20px 24px;border-left:2px solid var(--ac-orange);background:rgba(232,114,42,.04);border-radius:0 8px 8px 0;font-size:.9375rem;color:rgba(226,228,236,.4);font-style:italic;line-height:1.75}
+@media(max-width:800px){.about-grid{grid-template-columns:1fr;gap:40px}.about-sticky{position:static}}
+
+/* ══════════════════════════════════════
+   ③ PROJECTS  bg:#111318  accent:BLUE
+══════════════════════════════════════ */
+#projects{
+  background:#111318;
+  padding:96px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#projects::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 40% at 20% 70%,rgba(59,130,246,0.05) 0%,transparent 65%);pointer-events:none}
+.sec-title-blue em{color:rgba(96,165,250,.4)}
+.prlist{display:flex;flex-direction:column;gap:2px}
+.pcard{background:rgba(255,255,255,0.025);border:1px solid rgba(255,255,255,0.06);border-radius:10px;overflow:hidden;transition:border-color 250ms}
+.pcard:hover{border-color:rgba(59,130,246,.18)}
+.pcard.open{border-color:rgba(59,130,246,.3)}
+.pcard-head{display:grid;grid-template-columns:auto 1fr auto auto;gap:20px;align-items:center;padding:24px 28px;cursor:none;transition:background 200ms}
+.pcard-head:hover{background:rgba(255,255,255,.025)}
+.pcard-idx{font-family:'Space Grotesk',sans-serif;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(226,228,236,.18);min-width:26px;transition:color 200ms}
+.pcard.open .pcard-idx{color:var(--ac-blue)}
+.pcard-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(.88rem,1.8vw,1.0625rem);font-weight:600;letter-spacing:-0.01em;line-height:1.2;color:#E2E4EC}
+.pcard-sub{font-size:.78rem;color:rgba(226,228,236,.28);margin-top:3px}
+.pcard-tags{display:flex;gap:5px;flex-wrap:wrap}
+.ptag{font-size:.58rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(226,228,236,.28);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:3px 8px;border-radius:3px;transition:color 200ms,border-color 200ms}
+.pcard.open .ptag{color:var(--ac-blue2);border-color:rgba(59,130,246,.22)}
+.pcard-arrow{width:28px;height:28px;border-radius:50%;border:1px solid rgba(255,255,255,.07);display:flex;align-items:center;justify-content:center;transition:transform 380ms var(--eout),border-color 250ms,background 250ms;flex-shrink:0}
+.pcard.open .pcard-arrow{transform:rotate(180deg);border-color:rgba(59,130,246,.3);background:rgba(59,130,246,.07)}
+.pcard-arrow svg{width:11px;height:11px;stroke:rgba(226,228,236,.3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 250ms}
+.pcard.open .pcard-arrow svg{stroke:var(--ac-blue2)}
+.pcard-body{max-height:0;overflow:hidden;transition:max-height 520ms var(--eout)}
+.pcard.open .pcard-body{max-height:700px}
+.pcard-inner{padding:0 28px 28px;border-top:1px solid rgba(255,255,255,.05);display:grid;grid-template-columns:1fr 1fr;gap:20px 40px;padding-top:24px}
+.pcard-desc{grid-column:1/2;font-size:.9375rem;color:rgba(226,228,236,.42);line-height:1.85}
+.pcard-aside{grid-column:2/3;display:flex;flex-direction:column;gap:14px}
+.pf label{font-size:.55rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(226,228,236,.18);display:block;margin-bottom:4px}
+.pf span{font-size:.8125rem;color:rgba(226,228,236,.4);line-height:1.5}
+.pf strong{color:#E2E4EC;font-weight:500}
+.pcard-diag{grid-column:1/-1;background:rgba(59,130,246,.03);border:1px solid rgba(59,130,246,.07);border-radius:6px;padding:18px 24px;display:flex;align-items:center;justify-content:center}
+.pcard-diag svg{width:100%;max-width:380px;height:84px;opacity:.42}
+@media(max-width:640px){.pcard-head{grid-template-columns:auto 1fr auto}.pcard-tags{display:none}.pcard-inner{grid-template-columns:1fr}.pcard-aside{grid-column:1/2}.pcard-diag{grid-column:1/2}}
+
+/* ══════════════════════════════════════
+   ④ SKILLS  bg:#131713  accent:GREEN
+══════════════════════════════════════ */
+#skills{
+  background:#131713;
+  padding:96px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#skills::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 50% at 80% 50%,rgba(74,222,128,0.04) 0%,transparent 65%);pointer-events:none}
+.sec-title-green em{color:rgba(134,239,172,.35)}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden}
+.sc{background:rgba(0,0,0,.3);padding:28px 24px;position:relative;overflow:hidden;transition:background 200ms,opacity 220ms,filter 250ms}
+.sc::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--ac-green),var(--ac-mint));transform:scaleX(0);transform-origin:left;transition:transform 350ms var(--eout)}
+.sgrid:hover .sc{opacity:.24;filter:blur(.8px) saturate(.4)}
+.sgrid:hover .sc:hover{opacity:1;filter:none;background:rgba(74,222,128,.04)}
+.sgrid:hover .sc:hover::before{transform:scaleX(1)}
+.sc-bg-n{position:absolute;right:10px;bottom:6px;font-family:'Space Grotesk',sans-serif;font-size:3.5rem;font-weight:800;color:rgba(74,222,128,.025);line-height:1;pointer-events:none}
+.skico{font-size:1.3rem;margin-bottom:13px;display:block;filter:grayscale(1);transition:filter 250ms}
+.sc:hover .skico{filter:grayscale(0)}
+.sktitle{font-family:'Space Grotesk',sans-serif;font-size:.9rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:11px;color:#E2E4EC}
+.sktags{display:flex;flex-wrap:wrap;gap:5px}
+.skt{font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(226,228,236,.35);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:3px 8px;border-radius:3px;transition:color 200ms,border-color 200ms,background 200ms}
+.sc:hover .skt.hi{color:var(--ac-green2);border-color:rgba(134,239,172,.3);background:rgba(74,222,128,.06)}
+@media(max-width:800px){.sgrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.sgrid{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════
+   ⑤ EXPERIENCE  bg:#0E1614  accent:MINT
+══════════════════════════════════════ */
+#experience{
+  background:#0E1614;
+  padding:96px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#experience::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 50% 55% at 15% 60%,rgba(52,211,153,0.05) 0%,transparent 65%);pointer-events:none}
+.sec-title-mint em{color:rgba(52,211,153,.35)}
+.excards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.05);border:1px solid rgba(52,211,153,.1);border-radius:12px;overflow:hidden;margin-bottom:2px}
+.exc{background:rgba(255,255,255,.025);padding:34px 28px;position:relative;overflow:hidden;transition:background 220ms}
+.exc::before{content:'';position:absolute;top:0;left:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--ac-mint),transparent);transform:scaleY(0);transform-origin:top;transition:transform 420ms var(--eout)}
+.exc:hover{background:rgba(52,211,153,.04)}
+.exc:hover::before{transform:scaleY(1)}
+.exc-yr{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac-mint);background:rgba(52,211,153,.08);border:1px solid rgba(52,211,153,.18);padding:4px 12px;border-radius:100px;display:inline-block;margin-bottom:18px}
+.exc-role{font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;letter-spacing:-0.02em;line-height:1.2;margin-bottom:5px;color:#E2E4EC}
+.exc-co{font-size:.78rem;font-weight:500;color:var(--ac-mint);margin-bottom:14px;opacity:.7}
+.exc-desc{font-size:.8125rem;color:rgba(226,228,236,.38);line-height:1.75}
+.exc-n{position:absolute;bottom:16px;right:20px;font-family:'Space Grotesk',sans-serif;font-size:4rem;font-weight:800;letter-spacing:-0.06em;color:rgba(52,211,153,.04);line-height:1;user-select:none;transition:color 300ms}
+.exc:hover .exc-n{color:rgba(52,211,153,.08)}
+.exfr{background:rgba(255,255,255,.02);border:1px solid rgba(52,211,153,.08);border-radius:0 0 12px 12px;padding:20px 28px;display:flex;gap:36px;align-items:center;flex-wrap:wrap}
+.exfrl{font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:rgba(226,228,236,.28)}
+.exfrtags{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.extag{font-size:.58rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(52,211,153,.6);background:rgba(52,211,153,.05);border:1px solid rgba(52,211,153,.12);padding:3px 8px;border-radius:3px}
+@media(max-width:900px){.excards{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════
+   ⑥ RENDERS  bg:#141210  accent:ORANGE
+══════════════════════════════════════ */
+#renders{
+  background:#141210;
+  padding:80px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#renders::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 80%,rgba(232,114,42,0.04) 0%,transparent 65%);pointer-events:none}
+.rlabel{font-size:.65rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ac-orange2);margin-bottom:40px;display:flex;align-items:center;gap:10px}
+.rlabel::before{content:'';width:22px;height:1px;background:var(--ac-orange2);opacity:.5}
+.rgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:12px}
+.rc{border-radius:10px;overflow:hidden;background:rgba(255,255,255,.03);border:1px solid rgba(232,114,42,.08);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;position:relative;transition:transform 250ms var(--eout),border-color 250ms}
+.rc:hover{transform:translateY(-3px);border-color:rgba(232,114,42,.2)}
+.rc:first-child{aspect-ratio:auto;grid-row:span 2}
+.rc-lbl{position:absolute;bottom:0;left:0;right:0;padding:14px;background:linear-gradient(to top,rgba(0,0,0,.55),transparent);color:rgba(226,228,236,.5);font-size:.58rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+@media(max-width:800px){.rgrid{grid-template-columns:1fr 1fr}.rc:first-child{grid-row:span 1;aspect-ratio:4/3}}
+@media(max-width:520px){.rgrid{grid-template-columns:1fr}}
+
+/* ══════════════════════════════════════
+   ⑦ EDUCATION  bg:#0F1115  accent:BLUE
+══════════════════════════════════════ */
+#education{
+  background:#0F1115;
+  padding:96px 0;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#education::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 55% 45% at 85% 50%,rgba(59,130,246,0.04) 0%,transparent 65%);pointer-events:none}
+.sec-title-blue2 em{color:rgba(96,165,250,.35)}
+.edrows{display:flex;flex-direction:column;gap:2px}
+.edr{display:grid;grid-template-columns:160px 1fr auto;gap:28px;align-items:center;background:rgba(255,255,255,.025);padding:24px 28px;border-left:2px solid transparent;transition:border-color 300ms,background 220ms,filter 250ms,opacity 250ms}
+.edr:first-child{border-radius:8px 8px 0 0}
+.edr:last-child{border-radius:0 0 8px 8px}
+.edrows:hover .edr{filter:blur(.5px);opacity:.35}
+.edrows:hover .edr:hover{filter:none;opacity:1;background:rgba(59,130,246,.04);border-color:var(--ac-blue)}
+.edp{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(226,228,236,.25)}
+.edi{font-family:'Space Grotesk',sans-serif;font-size:.9375rem;font-weight:600;letter-spacing:-0.01em;margin-bottom:3px;color:#E2E4EC}
+.edd{font-size:.8rem;color:rgba(226,228,236,.4);line-height:1.5}
+.edbp{font-size:.55rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--ac-blue2);background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.15);padding:5px 11px;border-radius:3px;white-space:nowrap}
+@media(max-width:680px){.edr{grid-template-columns:1fr;gap:6px}.edbp{display:none}}
+
+/* ══════════════════════════════════════
+   ⑧ CONTACT  bg:#09090B  accent:RED
+══════════════════════════════════════ */
+#contact{
+  background:#09090B;
+  padding:96px 0 120px;
+  position:relative;overflow:hidden;
+  border-top:1px solid rgba(255,255,255,0.04);
+}
+#contact::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.022) 1px,transparent 1px);background-size:52px 52px}
+.ct-layout{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start}
+.ct-big{font-family:'Space Grotesk',sans-serif;font-size:clamp(2.5rem,5.5vw,4.5rem);font-weight:700;letter-spacing:-0.045em;line-height:.9;margin-bottom:24px;color:#E2E4EC}
+.ct-big em{display:block;color:transparent;-webkit-text-stroke:1.5px rgba(226,228,236,.12);font-weight:300;font-style:italic}
+.ct-sub{font-size:1rem;color:rgba(226,228,236,.38);line-height:1.8;margin-bottom:32px}
+.avpill{display:inline-flex;align-items:center;gap:9px;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18);padding:9px 16px;border-radius:3px;font-size:.62rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#6EE7B7}
+.avdot{width:6px;height:6px;border-radius:50%;background:#10B981;box-shadow:0 0 6px rgba(16,185,129,.55);animation:pulse 2s ease-in-out infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.clinks{display:flex;flex-direction:column;gap:8px}
+.cl{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:16px 20px;text-decoration:none;transition:border-color 200ms,background 200ms,transform 170ms var(--espr),filter 200ms,opacity 200ms}
+.clinks:hover .cl{filter:blur(.3px);opacity:.32}
+.clinks:hover .cl:hover{filter:none;opacity:1;border-color:rgba(232,54,42,.28);background:rgba(232,54,42,.04);transform:translateX(6px)}
+.clico{width:40px;height:40px;border-radius:6px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ico-li{background:rgba(10,102,194,.1);border:1px solid rgba(10,102,194,.18)}
+.ico-wa{background:rgba(37,211,102,.07);border:1px solid rgba(37,211,102,.14)}
+.ico-em{background:rgba(234,88,12,.07);border:1px solid rgba(234,88,12,.14)}
+.ico-ig{background:rgba(225,48,108,.07);border:1px solid rgba(225,48,108,.14)}
+.clname{font-family:'Space Grotesk',sans-serif;font-size:.875rem;font-weight:600;color:#E2E4EC}
+.clval{font-size:.72rem;color:rgba(226,228,236,.22);margin-top:2px}
+.clarr{color:rgba(226,228,236,.18);font-size:12px;margin-left:auto;transition:color 170ms,transform 170ms}
+.cl:hover .clarr{color:var(--ac-red);transform:translateX(3px)}
+.idcard{background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;position:sticky;top:90px;margin-top:0}
+.idtop{background:linear-gradient(135deg,#0D1118,#0F151E);padding:32px;position:relative;border-bottom:1px solid rgba(255,255,255,.05);overflow:hidden}
+.idtop::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(59,130,246,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(59,130,246,.05) 1px,transparent 1px);background-size:24px 24px}
+.idtop::after{content:'';position:absolute;right:26px;bottom:26px;width:46px;height:46px;border:1px solid rgba(232,54,42,.16);border-radius:50%}
+.idinit{position:relative;z-index:1;width:56px;height:56px;border-radius:50%;background:var(--ac-red);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:1rem;font-weight:700;color:#fff;margin-bottom:14px;box-shadow:0 0 18px rgba(232,54,42,.26)}
+.idname{position:relative;z-index:1;font-family:'Space Grotesk',sans-serif;font-size:1.125rem;font-weight:700;letter-spacing:-0.02em;color:#E2E4EC;margin-bottom:3px}
+.idrole{position:relative;z-index:1;font-size:.78rem;color:rgba(226,228,236,.35)}
+.idbody{padding:24px}
+.idchips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:20px}
+.chip{font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ac-blue2);background:rgba(59,130,246,.05);border:1px solid rgba(59,130,246,.13);padding:4px 10px;border-radius:3px}
+.idloc{display:flex;align-items:center;gap:7px;font-size:.78rem;color:rgba(226,228,236,.3);padding-top:16px;border-top:1px solid rgba(255,255,255,.05)}
+@media(max-width:800px){.ct-layout{grid-template-columns:1fr}.idcard{position:static}}
+
+/* FOOTER */
+footer{background:#09090B;border-top:1px solid rgba(255,255,255,.04);padding:22px 0;position:relative;z-index:2}
+.fi{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+.fc{font-size:.65rem;color:rgba(226,228,236,.18);letter-spacing:.06em}
+.fl{display:flex;gap:20px}
+.fl a{font-size:.65rem;color:rgba(226,228,236,.18);text-decoration:none;letter-spacing:.06em;transition:color 140ms}
 .fl a:hover{color:rgba(226,228,236,.45)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
 .services{padding:110px 0;background:#0d1017;position:relative;overflow:hidden}
-.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:34px}
-.service-card{padding:26px;border:1px solid rgba(96,165,250,.14);background:rgba(255,255,255,.025);border-radius:12px}
-.service-card b{display:block;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;margin:12px 0 9px;color:#f0f2f8}
-.service-card p{color:rgba(226,228,236,.48);font-size:.84rem;line-height:1.65}
-.service-card span{font-size:.58rem;letter-spacing:.13em;text-transform:uppercase;color:#60a5fa;font-weight:700}
 .service-intro{max-width:680px;color:rgba(226,228,236,.46);line-height:1.75;margin:18px 0 34px}
 .service-sections{display:grid;gap:12px}
 .service-group{border:1px solid rgba(96,165,250,.14);background:rgba(255,255,255,.025);border-radius:14px;overflow:hidden}
@@ -18,26 +389,117 @@
 .quote{padding:110px 0;background:#10131b;position:relative;overflow:hidden}
 .quote-layout{display:grid;grid-template-columns:.8fr 1.2fr;gap:64px;align-items:start}
 .quote-copy p{color:rgba(226,228,236,.48);line-height:1.75;margin-top:18px;max-width:470px}
+.brief-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:26px;border:1px solid rgba(255,255,255,.08);background:rgba(255,255,255,.025);border-radius:12px}
+.field{display:flex;flex-direction:column;gap:7px}.field.full{grid-column:1/-1}
+.field label{font-size:.58rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(226,228,236,.4);font-weight:700}
+.field input,.field select,.field textarea{width:100%;background:#0b0d13;color:#e2e4ec;border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:12px;font:inherit;outline:none}
 .field textarea{min-height:110px;resize:vertical}.field input:focus,.field select:focus,.field textarea:focus{border-color:#3b82f6}
 .form-note{grid-column:1/-1;font-size:.68rem;line-height:1.5;color:rgba(226,228,236,.34)}
 .form-actions{grid-column:1/-1;display:flex;gap:10px;align-items:center;flex-wrap:wrap}.form-status{font-size:.75rem;color:#86efac}
-@media(max-width:850px){.service-grid{grid-template-columns:1fr}.quote-layout{grid-template-columns:1fr;gap:30px}}
 @media(max-width:850px){.sector-panel{grid-template-columns:1fr}.quote-layout{grid-template-columns:1fr;gap:30px}}
 @media(max-width:600px){.service-group summary{grid-template-columns:38px 1fr auto;padding:19px 16px;gap:10px}.sector-panel{padding:18px}.group-title span{display:none}}
 @media(max-width:560px){.brief-form{grid-template-columns:1fr;padding:18px}.field{grid-column:1/-1}}
 </style>
 </head>
+<body>
+
+<div id="C" aria-hidden="true"><div id="CR"></div><div id="CD"></div></div>
+<div id="P" aria-hidden="true"></div>
+
+<nav id="nav">
+  <div class="nw">
+    <div class="logo">SPA<em>.</em></div>
+    <div class="ndots" aria-hidden="true">
+      <div class="nd on"></div><div class="nd"></div><div class="nd"></div>
+      <div class="nd"></div><div class="nd"></div><div class="nd"></div>
+      <div class="nd"></div><div class="nd"></div>
+    </div>
+    <ul class="nlinks">
+      <li><a href="#about">Sobre mí</a></li>
+      <li><a href="#services">Servicios</a></li>
+      <li><a href="#projects">Proyectos</a></li>
+      <li><a href="#skills">Aptitudes</a></li>
+      <li><a href="#experience">Experiencia</a></li>
+      <li><a href="#contact">Contacto</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ① HERO -->
+<section id="hero">
+  <div class="sn" aria-hidden="true">01</div>
+  <div class="W">
+    <div class="hero-grid">
+      <div>
+        <div class="ey ey-blue rv">Diseñador Industrial</div>
+        <h1 class="hero-name rv">Santiago<br>Pérez<br><span class="ghost">Agüero</span></h1>
+        <p class="hero-sub rv"><strong>Proyectista 3D · Ingeniería de producto.</strong><br>SolidWorks · CATIA · Rhino · CNC.<br>San Juan, Argentina — disponible remoto.</p>
+        <div class="hbtns rv">
+          <a href="#quote" class="btn-red">Pedir presupuesto →</a>
+          <a href="#projects" class="btn-ghost">Ver proyectos</a>
+        </div>
+        <div class="hstats rv">
+          <div class="hst"><div class="hstn">6<em>+</em></div><div class="hstl">Años exp.</div></div>
+          <div class="hst"><div class="hstn">8<em>+</em></div><div class="hstl">Certif.</div></div>
+          <div class="hst"><div class="hstn">3<em>D</em></div><div class="hstl">Modelado</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ② ABOUT -->
+<section id="about">
+  <div class="sn" aria-hidden="true">02</div>
+  <div class="W">
+    <div class="about-grid">
+      <div class="about-sticky">
+        <div class="ey ey-orange rv">Sobre mí</div>
+        <h2 class="about-title rv">Diseño<br>que<br><em>se fabrica.</em></h2>
+        <div class="about-render rv" aria-label="Render de pieza mecánica">
+          <svg width="260" height="190" viewBox="0 0 280 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gm" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2A2C34"/><stop offset="50%" style="stop-color:#3A3C44"/><stop offset="100%" style="stop-color:#1A1C24"/></linearGradient>
+              <linearGradient id="gd" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#222430"/><stop offset="100%" style="stop-color:#0E1018"/></linearGradient>
+              <filter id="sh"><feDropShadow dx="4" dy="6" stdDeviation="6" flood-color="#000" flood-opacity="0.5"/></filter>
+            </defs>
+            <rect x="60" y="60" width="160" height="80" rx="4" fill="url(#gm)" filter="url(#sh)"/>
+            <path d="M60 60 L100 40 L260 40 L220 60 Z" fill="#2E3040"/>
+            <path d="M220 60 L260 40 L260 120 L220 140 Z" fill="url(#gd)"/>
+            <ellipse cx="110" cy="100" rx="16" ry="16" fill="#14161E"/>
+            <ellipse cx="110" cy="100" rx="9" ry="9" fill="#08090C"/>
+            <ellipse cx="170" cy="100" rx="16" ry="16" fill="#14161E"/>
+            <ellipse cx="170" cy="100" rx="9" ry="9" fill="#08090C"/>
+            <ellipse cx="130" cy="40" rx="9" ry="4.5" fill="#242636"/>
+            <ellipse cx="130" cy="40" rx="5" ry="2.5" fill="#14161E"/>
+            <ellipse cx="190" cy="40" rx="9" ry="4.5" fill="#242636"/>
+            <ellipse cx="190" cy="40" rx="5" ry="2.5" fill="#14161E"/>
+            <!-- highlight edge -->
+            <line x1="60" y1="60" x2="220" y2="60" stroke="rgba(232,114,42,0.35)" stroke-width="1.5"/>
+            <line x1="60" y1="60" x2="100" y2="40" stroke="rgba(232,114,42,0.2)" stroke-width="1"/>
+            <!-- dim marks -->
+            <line x1="60" y1="152" x2="220" y2="152" stroke="rgba(232,114,42,0.25)" stroke-width=".7"/>
+            <line x1="60" y1="147" x2="60" y2="157" stroke="rgba(232,114,42,0.25)" stroke-width=".7"/>
+            <line x1="220" y1="147" x2="220" y2="157" stroke="rgba(232,114,42,0.25)" stroke-width=".7"/>
+            <text x="130" y="168" font-size="9" fill="rgba(232,114,42,0.45)" font-family="monospace" text-anchor="middle">160 mm</text>
+          </svg>
+          <div class="about-render-lbl">Vista isométrica · SolidWorks</div>
+        </div>
+      </div>
+      <div class="about-body rv">
+        <p>Soy <strong>Santiago Gabriel Pérez Agüero</strong>, diseñador industrial egresado de la Universidad Nacional de Córdoba. Más de 6 años en industria automotriz, maquinaria pesada y diseño de productos.</p>
+        <p>Cuento con un posgrado en <strong>Ergonomía Interdisciplinaria</strong>. Mi trayectoria incluye Cartocor como cadista, la industria automotriz en Descar Argentina, y proyectista en <strong>CMA — Cuyo Máquinas Argentinas</strong>.</p>
+        <p>Desde 2018 ofrezco <strong>modelado 3D freelance</strong>: exploración de formas, materiales, prototipado e impresión 3D a pedido.</p>
+        <div class="about-pull">"Pre-seleccionado para fabricación de prototipo — Convenio FAUD UNC con ECMA, Elabora Cordobesa de Menaje de Aluminio · 2019."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="services">
   <div class="sn" aria-hidden="true">03</div>
   <div class="W">
     <div class="ey ey-blue rv">Servicios</div>
-    <h2 class="sec-title sec-title-blue rv" style="color:#E2E4EC">De la idea a un resultado <em>fabricable</em></h2>
-    <div class="service-grid rv">
-      <article class="service-card"><span>01 · Definición</span><b>Diseño conceptual</b><p>Transformo una necesidad o idea inicial en propuestas concretas, con criterios de uso, forma, materiales y fabricación.</p></article>
-      <article class="service-card"><span>02 · Desarrollo</span><b>Modelado 3D</b><p>Creo modelos digitales para validar, presentar, imprimir o preparar un producto antes de fabricarlo.</p></article>
-      <article class="service-card"><span>03 · Producción</span><b>Ingeniería y planos</b><p>Planos de conjunto y piezas, archivos CNC, listas de materiales y documentación técnica según el alcance.</p></article>
-      <article class="service-card"><span>04 · Prototipo</span><b>Impresión 3D</b><p>Preparación e impresión de piezas propias o modelos existentes, con orientación sobre material y terminación.</p></article>
-      <article class="service-card"><span>05 · Industria</span><b>Soluciones metalúrgicas</b><p>Desarrollo de estructuras, dispositivos y piezas técnicas con experiencia en fabricación y montaje.</p></article>
-      <article class="service-card"><span>06 · Flexible</span><b>Servicio a medida</b><p>Si el proyecto combina materiales, electrónica o procesos, definimos juntos el alcance y los entregables.</p></article>
     <h2 class="sec-title sec-title-blue rv" style="color:#E2E4EC">Elegí el área que se parece a <em>tu proyecto</em></h2>
     <p class="service-intro rv">La información está dividida en tres áreas. Abrí solamente la que te interesa y recorré ejemplos breves con las flechas.</p>
     <div class="service-sections rv">
@@ -56,6 +518,320 @@
     </div>
   </div>
 </section>
+
+<!-- ④ PROJECTS -->
+<section id="projects">
+  <div class="sn" aria-hidden="true">03</div>
+  <div class="W">
+    <div class="rv">
+      <div class="ey ey-blue">Proyectos</div>
+      <h2 class="sec-title sec-title-blue" style="color:#E2E4EC;margin-bottom:40px">Mis <em>proyectos</em></h2>
+    </div>
+    <div class="prlist rv">
+      <div class="pcard" id="pc1">
+        <div class="pcard-head" role="button" aria-expanded="false" tabindex="0">
+          <span class="pcard-idx">01</span>
+          <div><div class="pcard-title">Sistema Ergonómico de Transporte de Muestras en Diferentes Estados de Materia</div><div class="pcard-sub">Diseño Industrial · Ergonomía · Prototipado — <em>(Ejemplo)</em></div></div>
+          <div class="pcard-tags"><span class="ptag">SolidWorks</span><span class="ptag">Ergonomía</span><span class="ptag">Prototipado</span></div>
+          <div class="pcard-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="pcard-body"><div class="pcard-inner">
+          <p class="pcard-desc">Sistema de transporte modular para laboratorios que manipulan muestras en estado sólido, líquido y gaseoso. Abordó ergonomía del operario, seguridad y adaptabilidad. Modelado 3D en SolidWorks, planos de fabricación y prototipo funcional a escala.</p>
+          <div class="pcard-aside">
+            <div class="pf"><label>Herramientas</label><span><strong>SolidWorks</strong> · Rhino 3D · Impresión 3D</span></div>
+            <div class="pf"><label>Ámbito</label><span>Laboratorio industrial</span></div>
+            <div class="pf"><label>Entregables</label><span>Modelado 3D · Planos · Prototipo</span></div>
+            <div class="pf"><label>Estado</label><span><strong>Completado</strong></span></div>
+          </div>
+          <div class="pcard-diag"><svg viewBox="0 0 380 84" xmlns="http://www.w3.org/2000/svg" stroke="#3B82F6" stroke-width="0.8" fill="none"><rect x="18" y="22" width="88" height="40" rx="2"/><rect x="30" y="30" width="64" height="24" rx="1"/><line x1="18" y1="74" x2="106" y2="74" stroke-width=".6"/><line x1="18" y1="69" x2="18" y2="79" stroke-width=".8"/><line x1="106" y1="69" x2="106" y2="79" stroke-width=".8"/><polyline points="25,72 18,74 25,76" stroke-width=".8"/><polyline points="99,72 106,74 99,76" stroke-width=".8"/><text x="44" y="83" font-size="7" fill="#60A5FA" font-family="monospace" stroke="none">88mm</text><circle cx="195" cy="42" r="30"/><circle cx="195" cy="42" r="13"/><circle cx="195" cy="42" r="3.5" fill="#3B82F6" stroke="none" opacity=".5"/><line x1="195" y1="12" x2="195" y2="4"/><line x1="195" y1="72" x2="195" y2="80"/><line x1="165" y1="42" x2="157" y2="42"/><line x1="225" y1="42" x2="233" y2="42"/><rect x="288" y="16" width="68" height="52" rx="2"/><line x1="288" y1="42" x2="356" y2="42" stroke-width=".5"/><line x1="322" y1="16" x2="322" y2="68" stroke-width=".5"/><circle cx="322" cy="42" r="7"/></svg></div>
+        </div></div>
+      </div>
+      <div class="pcard" id="pc2">
+        <div class="pcard-head" role="button" aria-expanded="false" tabindex="0">
+          <span class="pcard-idx">02</span>
+          <div><div class="pcard-title">Dispositivo de Fijación para Soldadura en Línea de Producción Automotriz</div><div class="pcard-sub">Ingeniería Automotriz · Tooling · Fabricación — <em>(Ejemplo)</em></div></div>
+          <div class="pcard-tags"><span class="ptag">CATIA V5</span><span class="ptag">Automotriz</span><span class="ptag">GD&T</span></div>
+          <div class="pcard-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="pcard-body"><div class="pcard-inner">
+          <p class="pcard-desc">Jig de soldadura para línea de ensamblaje automotriz. Análisis de tolerancias, selección de materiales para alta temperatura y ciclos repetitivos. Coordinación con planta para ergonomía del operario y tiempo de ciclo óptimo. Modelado en CATIA V5.</p>
+          <div class="pcard-aside">
+            <div class="pf"><label>Herramientas</label><span><strong>CATIA V5</strong> · Siemens NX · AutoCAD</span></div>
+            <div class="pf"><label>Industria</label><span>Automotriz · Línea de producción</span></div>
+            <div class="pf"><label>Entregables</label><span>Diseño detalle · Planos GD&T · BOM</span></div>
+            <div class="pf"><label>Estado</label><span><strong>Implementado</strong> en producción</span></div>
+          </div>
+          <div class="pcard-diag"><svg viewBox="0 0 380 84" xmlns="http://www.w3.org/2000/svg" stroke="#3B82F6" stroke-width="0.8" fill="none"><rect x="28" y="30" width="138" height="24" rx="1"/><rect x="46" y="20" width="17" height="10"/><rect x="111" y="20" width="17" height="10"/><line x1="28" y1="68" x2="166" y2="68" stroke-width=".6"/><line x1="28" y1="63" x2="28" y2="73" stroke-width=".8"/><line x1="166" y1="63" x2="166" y2="73" stroke-width=".8"/><polyline points="35,66 28,68 35,70" stroke-width=".8"/><polyline points="159,66 166,68 159,70" stroke-width=".8"/><text x="78" y="80" font-size="7" fill="#60A5FA" font-family="monospace" stroke="none">138mm</text><circle cx="315" cy="42" r="26"/><circle cx="315" cy="42" r="11"/><line x1="289" y1="42" x2="341" y2="42" stroke-dasharray="3 2" stroke-width=".5"/><line x1="315" y1="16" x2="315" y2="68" stroke-dasharray="3 2" stroke-width=".5"/><circle cx="315" cy="42" r="3" fill="#E8362A" stroke="none" opacity=".4"/><text x="345" y="46" font-size="7" fill="#60A5FA" font-family="monospace" stroke="none">ø52</text></svg></div>
+        </div></div>
+      </div>
+      <div class="pcard" id="pc3">
+        <div class="pcard-head" role="button" aria-expanded="false" tabindex="0">
+          <span class="pcard-idx">03</span>
+          <div><div class="pcard-title">Envase Sustentable para Producto Cosmético de Uso Industrial</div><div class="pcard-sub">Packaging · Diseño Circular · Sostenibilidad — <em>(Ejemplo)</em></div></div>
+          <div class="pcard-tags"><span class="ptag">Rhino 3D</span><span class="ptag">KeyShot</span><span class="ptag">Sustentabilidad</span></div>
+          <div class="pcard-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </div>
+        <div class="pcard-body"><div class="pcard-inner">
+          <p class="pcard-desc">Sistema de envase reutilizable para cosméticos industriales. Investigación de materiales reciclados, análisis del ciclo de vida y desarrollo formal en Rhino 3D. Reducción del material plástico en un 60% manteniendo resistencia mecánica.</p>
+          <div class="pcard-aside">
+            <div class="pf"><label>Herramientas</label><span><strong>Rhino 3D</strong> · KeyShot · CorelDRAW</span></div>
+            <div class="pf"><label>Enfoque</label><span>Economía circular · Desmontaje</span></div>
+            <div class="pf"><label>Resultado</label><span><strong>−60%</strong> plástico vs. convencional</span></div>
+            <div class="pf"><label>Estado</label><span>Prototipo conceptual validado</span></div>
+          </div>
+          <div class="pcard-diag"><svg viewBox="0 0 380 84" xmlns="http://www.w3.org/2000/svg" stroke="#3B82F6" stroke-width="0.8" fill="none"><path d="M 52 72 L 36 28 Q 52 15 75 15 Q 97 15 90 28 L 73 72 Z"/><ellipse cx="62" cy="72" rx="24" ry="5.5"/><ellipse cx="62" cy="15" rx="17" ry="4.5"/><line x1="22" y1="15" x2="22" y2="72" stroke-width=".6"/><line x1="16" y1="15" x2="28" y2="15" stroke-width=".6"/><line x1="16" y1="72" x2="28" y2="72" stroke-width=".6"/><text x="0" y="47" font-size="6" fill="#60A5FA" font-family="monospace" stroke="none">H:57</text><circle cx="195" cy="42" r="28"/><circle cx="195" cy="42" r="13"/><line x1="167" y1="42" x2="223" y2="42" stroke-dasharray="3 2" stroke-width=".5"/><line x1="195" y1="14" x2="195" y2="70" stroke-dasharray="3 2" stroke-width=".5"/><circle cx="195" cy="42" r="3" fill="#3B82F6" stroke="none" opacity=".5"/><rect x="280" y="14" width="80" height="56" rx="2"/><line x1="280" y1="42" x2="360" y2="42" stroke-width=".4" stroke-dasharray="2 2" opacity=".5"/><line x1="320" y1="14" x2="320" y2="70" stroke-width=".4" stroke-dasharray="2 2" opacity=".5"/><text x="288" y="33" font-size="7" fill="#60A5FA" font-family="monospace" stroke="none">SECC. A-A</text></svg></div>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ④ SKILLS -->
+<section id="skills">
+  <div class="sn" aria-hidden="true">04</div>
+  <div class="W">
+    <div class="ey ey-green rv">Aptitudes</div>
+    <h2 class="sec-title sec-title-green rv" style="color:#E2E4EC">Herramientas y <em>especialidades</em></h2>
+    <div class="sgrid rv">
+      <div class="sc"><span class="sc-bg-n">01</span><span class="skico">⚙️</span><div class="sktitle">CAD / CAM</div><div class="sktags"><span class="skt hi">SolidWorks</span><span class="skt hi">CATIA V5</span><span class="skt hi">Siemens NX</span><span class="skt">Rhino 3D</span><span class="skt">AutoCAD</span><span class="skt">CorelDRAW</span></div></div>
+      <div class="sc"><span class="sc-bg-n">02</span><span class="skico">🏗️</span><div class="sktitle">Fabricación Industrial</div><div class="sktags"><span class="skt hi">Planos técnicos</span><span class="skt hi">CNC</span><span class="skt hi">GD&T</span><span class="skt">Corte láser</span><span class="skt">Chapas metálicas</span><span class="skt">BOM</span></div></div>
+      <div class="sc"><span class="sc-bg-n">03</span><span class="skico">📐</span><div class="sktitle">3D & Prototipado</div><div class="sktags"><span class="skt hi">Modelado 3D</span><span class="skt hi">Impresión 3D</span><span class="skt">Renderizado</span><span class="skt">Paramétrico</span><span class="skt">KeyShot</span></div></div>
+      <div class="sc"><span class="sc-bg-n">04</span><span class="skico">🚗</span><div class="sktitle">Industria Automotriz</div><div class="sktags"><span class="skt hi">Ing. automotriz</span><span class="skt">Dispositivos soldadura</span><span class="skt">Ensamblaje</span><span class="skt">Matricería</span></div></div>
+      <div class="sc"><span class="sc-bg-n">05</span><span class="skico">♻️</span><div class="sktitle">Sostenibilidad</div><div class="sktags"><span class="skt hi">Diseño circular</span><span class="skt">Packaging sustentable</span><span class="skt">Luminotecnia</span><span class="skt">Plásticos</span></div></div>
+      <div class="sc"><span class="sc-bg-n">06</span><span class="skico">🤝</span><div class="sktitle">Gestión</div><div class="sktags"><span class="skt hi">Coordinación</span><span class="skt">Liderazgo</span><span class="skt">Inglés B2</span><span class="skt">Marketing digital</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑤ EXPERIENCE -->
+<section id="experience">
+  <div class="sn" aria-hidden="true">05</div>
+  <div class="W">
+    <div class="ey ey-mint rv">Experiencia</div>
+    <h2 class="sec-title sec-title-mint rv" style="color:#E2E4EC">Trayectoria <em>profesional</em></h2>
+    <div class="excards rv">
+      <div class="exc"><span class="exc-yr">Jul 2024 – Abr 2025</span><div class="exc-role">Ingeniería de Producto</div><div class="exc-co">CMA — Cuyo Máquinas Argentinas</div><div class="exc-desc">Proyectista en diseño y producción industrial. SolidWorks. Planos y documentación técnica para maquinaria industrial.</div><div class="exc-n">01</div></div>
+      <div class="exc"><span class="exc-yr">Abr 2022 – Dic 2022</span><div class="exc-role">Industrial Design Engineer</div><div class="exc-co">Descar Argentina SRL</div><div class="exc-desc">Ingeniería de proyectos automotriz. Dispositivos de soldadura, ensamblaje y líneas de montaje.</div><div class="exc-n">02</div></div>
+      <div class="exc"><span class="exc-yr">Inicio de carrera</span><div class="exc-role">Cadista & Proyectista</div><div class="exc-co">Cartocor S.A.</div><div class="exc-desc">Diseño técnico industrial. Dibujo CAD y planificación de proyectos de ingeniería.</div><div class="exc-n">03</div></div>
+    </div>
+    <div class="exfr rv">
+      <div><div class="exfrl">Freelance · 2018 – Presente</div><div class="exfrtags"><span class="extag">Modelado 3D a pedido</span><span class="extag">Prototipado</span><span class="extag">Impresión 3D</span><span class="extag">Renderizado de producto</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑥ RENDERS -->
+<section id="renders">
+  <div class="W">
+    <div class="rlabel rv">Ejemplos de trabajo</div>
+    <div class="rgrid rv">
+      <div class="rc">
+        <svg width="100%" height="100%" viewBox="0 0 320 260" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rm1" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#2A2C38"/><stop offset="55%" style="stop-color:#3C3E4C"/><stop offset="100%" style="stop-color:#1A1C26"/></linearGradient>
+            <linearGradient id="rm2" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1E2030"/><stop offset="100%" style="stop-color:#0C0E18"/></linearGradient>
+            <filter id="sh3"><feDropShadow dx="5" dy="8" stdDeviation="10" flood-color="#000" flood-opacity="0.6"/></filter>
+          </defs>
+          <rect width="320" height="260" fill="#111318"/>
+          <ellipse cx="160" cy="232" rx="100" ry="10" fill="rgba(0,0,0,0.4)"/>
+          <path d="M 80 180 L 80 80 L 160 40 L 240 80 L 240 180 Z" fill="url(#rm1)" filter="url(#sh3)"/>
+          <path d="M 80 80 L 160 40 L 240 80 L 160 120 Z" fill="#252738"/>
+          <path d="M 110 160 L 110 100 L 160 76 L 210 100 L 210 160 Z" fill="#0E1020"/>
+          <path d="M 110 100 L 160 76 L 210 100 L 160 124 Z" fill="#0A0C16"/>
+          <ellipse cx="120" cy="130" rx="14" ry="14" fill="#0C0E18"/>
+          <ellipse cx="120" cy="130" rx="8" ry="8" fill="#060810"/>
+          <ellipse cx="200" cy="130" rx="14" ry="14" fill="#0C0E18"/>
+          <ellipse cx="200" cy="130" rx="8" ry="8" fill="#060810"/>
+          <ellipse cx="130" cy="80" rx="9" ry="4.5" fill="#1E2030"/>
+          <ellipse cx="130" cy="80" rx="5" ry="2.5" fill="#0E1020"/>
+          <ellipse cx="190" cy="80" rx="9" ry="4.5" fill="#1E2030"/>
+          <ellipse cx="190" cy="80" rx="5" ry="2.5" fill="#0E1020"/>
+          <line x1="80" y1="80" x2="220" y2="60" stroke="rgba(232,114,42,0.4)" stroke-width="1.5"/>
+          <line x1="80" y1="80" x2="80" y2="180" stroke="rgba(232,114,42,0.2)" stroke-width="1"/>
+          <line x1="80" y1="198" x2="240" y2="198" stroke="rgba(232,114,42,0.2)" stroke-width=".7"/>
+          <line x1="80" y1="193" x2="80" y2="203" stroke="rgba(232,114,42,0.2)" stroke-width=".7"/>
+          <line x1="240" y1="193" x2="240" y2="203" stroke="rgba(232,114,42,0.2)" stroke-width=".7"/>
+          <text x="160" y="214" font-size="9" fill="rgba(232,114,42,0.4)" font-family="monospace" text-anchor="middle">160 mm</text>
+        </svg>
+        <div class="rc-lbl">Soporte estructural · SolidWorks</div>
+      </div>
+      <div class="rc">
+        <svg width="100%" height="100%" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rs1" x1="0%" y1="0%" x2="0%" y2="100%"><stop offset="0%" style="stop-color:#2A2C38"/><stop offset="40%" style="stop-color:#3A3C4A"/><stop offset="80%" style="stop-color:#1A1C28"/><stop offset="100%" style="stop-color:#0E1020"/></linearGradient>
+          </defs>
+          <rect width="200" height="150" fill="#0E1614"/>
+          <ellipse cx="100" cy="112" rx="72" ry="7" fill="rgba(0,0,0,0.4)"/>
+          <rect x="28" y="50" width="144" height="48" rx="3" fill="url(#rs1)"/>
+          <ellipse cx="28" cy="74" rx="10" ry="24" fill="#1E2030"/>
+          <ellipse cx="172" cy="74" rx="10" ry="24" fill="#181A26"/>
+          <rect x="80" y="50" width="40" height="8" rx="1" fill="#0C0E18"/>
+          <rect x="28" y="58" width="16" height="32" rx="2" fill="#242636"/>
+          <rect x="156" y="58" width="16" height="32" rx="2" fill="#1C1E2C"/>
+          <line x1="28" y1="54" x2="172" y2="54" stroke="rgba(52,211,153,0.35)" stroke-width="1.5"/>
+          <line x1="28" y1="112" x2="172" y2="112" stroke="rgba(52,211,153,0.2)" stroke-width=".7"/>
+          <line x1="28" y1="107" x2="28" y2="117" stroke="rgba(52,211,153,0.2)" stroke-width=".7"/>
+          <line x1="172" y1="107" x2="172" y2="117" stroke="rgba(52,211,153,0.2)" stroke-width=".7"/>
+          <text x="100" y="128" font-size="9" fill="rgba(52,211,153,0.38)" font-family="monospace" text-anchor="middle">144 mm</text>
+        </svg>
+        <div class="rc-lbl">Eje escalonado · CATIA V5</div>
+      </div>
+      <div class="rc">
+        <svg width="100%" height="100%" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="rc1" x1="0%" y1="0%" x2="100%" y2="0%"><stop offset="0%" style="stop-color:#1C2E20"/><stop offset="50%" style="stop-color:#2A3E2E"/><stop offset="100%" style="stop-color:#142018"/></linearGradient>
+          </defs>
+          <rect width="200" height="150" fill="#111318"/>
+          <ellipse cx="100" cy="132" rx="52" ry="7" fill="rgba(0,0,0,0.4)"/>
+          <path d="M 52 120 L 42 42 Q 100 30 158 42 L 148 120 Z" fill="url(#rc1)"/>
+          <ellipse cx="100" cy="120" rx="48" ry="9" fill="#162418"/>
+          <ellipse cx="100" cy="42" rx="58" ry="11" fill="#1E3022"/>
+          <ellipse cx="100" cy="38" rx="54" ry="9" fill="#243826"/>
+          <path d="M 56 80 Q 100 72 144 80" stroke="rgba(74,222,128,0.18)" stroke-width="1" fill="none"/>
+          <path d="M 50 100 Q 100 92 150 100" stroke="rgba(74,222,128,0.12)" stroke-width="1" fill="none"/>
+          <line x1="42" y1="136" x2="158" y2="136" stroke="rgba(74,222,128,0.2)" stroke-width=".7"/>
+          <text x="100" y="147" font-size="9" fill="rgba(74,222,128,0.38)" font-family="monospace" text-anchor="middle">ø96 mm</text>
+        </svg>
+        <div class="rc-lbl">Envase · Rhino 3D</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ⑦ EDUCATION -->
+<section id="education">
+  <div class="sn" aria-hidden="true">06</div>
+  <div class="W">
+    <div class="ey ey-blue rv">Educación</div>
+    <h2 class="sec-title sec-title-blue2 rv" style="color:#E2E4EC">Formación <em>académica</em></h2>
+    <div class="edrows rv">
+      <div class="edr"><div class="edp">Posgrado</div><div><div class="edi">Universidad Nacional de Córdoba</div><div class="edd">Posgrado en Ergonomía Interdisciplinaria</div></div><div class="edbp">Posgrado</div></div>
+      <div class="edr"><div class="edp">2016 – 2021</div><div><div class="edi">Universidad Nacional de Córdoba</div><div class="edd">Diseño Industrial</div></div><div class="edbp">Grado</div></div>
+      <div class="edr"><div class="edp">2012 – 2015</div><div><div class="edi">Universidad Nacional de San Juan</div><div class="edd">Tecnicatura en Tecnología de Ing. Eléctrica, Electrónica y Comunicaciones · Nota: 10</div></div><div class="edbp">Técnico</div></div>
+      <div class="edr"><div class="edp">2005 – 2014</div><div><div class="edi">University of Cambridge</div><div class="edd">Inglés B2 — Lengua y Literatura Inglesa</div></div><div class="edbp">Idioma</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="quote" class="quote">
+  <div class="sn" aria-hidden="true">08</div>
+  <div class="W quote-layout">
+    <div class="quote-copy rv">
+      <div class="ey ey-blue">Presupuesto</div>
+      <h2 class="sec-title sec-title-blue" style="color:#E2E4EC">Contame qué necesitás <em>resolver</em></h2>
+      <p>No hace falta tener conocimientos técnicos. Elegí el servicio más cercano a tu idea y completá los datos básicos; después definimos juntos el alcance.</p>
+    </div>
+    <form class="brief-form rv" id="briefForm">
+      <div class="field"><label for="clientName">Nombre</label><input id="clientName" name="name" autocomplete="name" required></div>
+      <div class="field"><label for="clientContact">Email o WhatsApp</label><input id="clientContact" name="contact" required></div>
+      <div class="field"><label for="service">Servicio</label><select id="service" name="service" required><option value="">Elegir una opción</option><option>Diseño conceptual</option><option>Modelado 3D</option><option>Ingeniería y planos</option><option>Impresión 3D</option><option>Solución metalúrgica</option><option>Servicio a medida</option></select></div>
+      <div class="field"><label for="deadline">Fecha estimada</label><input id="deadline" name="deadline" type="date"></div>
+      <div class="field full"><label for="idea">Idea o problema a resolver</label><textarea id="idea" name="idea" placeholder="Contá qué querés hacer, para qué se usará y qué material o medidas conocés." required></textarea></div>
+      <div class="form-actions"><button class="btn-red" type="submit">Preparar solicitud →</button><span class="form-status" id="formStatus" role="status"></span></div>
+      <p class="form-note">Esta versión inicial guarda la solicitud en este dispositivo y abre WhatsApp con el resumen listo para enviar. Para alertas automáticas y panel multiusuario hará falta conectar un backend.</p>
+    </form>
+  </div>
+</section>
+
+<!-- ⑨ CONTACT -->
+<section id="contact">
+  <div class="sn" aria-hidden="true">07</div>
+  <div class="W">
+    <div class="ey ey-red rv">Contacto</div>
+    <div class="ct-layout rv">
+      <div>
+        <h2 class="ct-big">Hablemos<br><em>de tu proyecto.</em></h2>
+        <p class="ct-sub">Disponible para modelado 3D, ingeniería de producto, diseño industrial y diseño sostenible.</p>
+        <div class="avpill"><div class="avdot"></div>Disponible para proyectos · 2026</div>
+      </div>
+      <div>
+        <div class="clinks">
+          <a class="cl" href="https://www.linkedin.com/in/santygp" target="_blank" rel="noopener"><div class="clico ico-li"><svg width="17" height="17" viewBox="0 0 24 24" fill="#0A66C2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></div><div class="clname">LinkedIn<div class="clval">linkedin.com/in/santygp</div></div><span class="clarr">→</span></a>
+          <a class="cl" href="https://wa.me/5492646303313" target="_blank" rel="noopener"><div class="clico ico-wa"><svg width="17" height="17" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></div><div class="clname">WhatsApp<div class="clval">+54 9 2646 303313</div></div><span class="clarr">→</span></a>
+          <a class="cl" href="mailto:santyg.perez@hotmail.com"><div class="clico ico-em"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg></div><div class="clname">Email<div class="clval">santyg.perez@hotmail.com</div></div><span class="clarr">→</span></a>
+          <a class="cl" href="https://www.instagram.com/santiago.perezaguero" target="_blank" rel="noopener"><div class="clico ico-ig"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#E1306C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div><div class="clname">Instagram<div class="clval">@santiago.perezaguero</div></div><span class="clarr">→</span></a>
+        </div>
+        <div class="idcard" style="margin-top:14px">
+          <div class="idtop"><div class="idinit">SPA</div><div class="idname">Santiago Pérez Agüero</div><div class="idrole">Diseñador Industrial · Proyectista 3D</div></div>
+          <div class="idbody"><div class="idchips"><span class="chip">SolidWorks</span><span class="chip">CATIA</span><span class="chip">Rhino 3D</span><span class="chip">CNC</span><span class="chip">Ergonomía</span></div><div class="idloc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>San Juan, Argentina · Disponible remoto</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="W fi">
+    <span class="fc">© 2026 Santiago Pérez Agüero</span>
+    <div class="fl">
+      <a href="https://www.linkedin.com/in/santygp" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:santyg.perez@hotmail.com">Email</a>
+      <a href="https://wa.me/5492646303313" target="_blank" rel="noopener">WhatsApp</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Defer non-critical init
+const C=document.getElementById('C');
+const isTouch=window.matchMedia('(hover:none)').matches;
+let tt=null;
+if(!isTouch){
+  C.style.opacity='1';
+  document.addEventListener('mousemove',e=>{
+    C.style.transform=`translate(${e.clientX}px,${e.clientY}px) translate(-50%,-50%)`;
+  },{passive:true});
+  document.querySelectorAll('a,button,[role=button],.sc,.exc,.edr,.cl,.pcard-head,.rc').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+  });
+}else{
+  C.style.opacity='0';C.style.transition='opacity 500ms';
+  document.addEventListener('touchstart',e=>{
+    const t=e.changedTouches[0];
+    C.style.transition='opacity 100ms';
+    C.style.transform=`translate(${t.clientX}px,${t.clientY}px) translate(-50%,-50%)`;
+    C.style.opacity='1';clearTimeout(tt);
+  },{passive:true});
+  document.addEventListener('touchmove',e=>{
+    const t=e.changedTouches[0];
+    C.style.transform=`translate(${t.clientX}px,${t.clientY}px) translate(-50%,-50%)`;
+  },{passive:true});
+  document.addEventListener('touchend',()=>{
+    clearTimeout(tt);
+    tt=setTimeout(()=>{ C.style.transition='opacity 550ms'; C.style.opacity='0'; },380);
+  },{passive:true});
+}
+const P=document.getElementById('P');
+let ticking=false;
+window.addEventListener('scroll',()=>{
+  if(!ticking){
+    requestAnimationFrame(()=>{
+      P.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%';
+      ticking=false;
+    });
+    ticking=true;
+  }
+},{passive:true});
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>{ nav.classList.toggle('up',window.scrollY>16); },{passive:true});
+const secs=[...document.querySelectorAll('section[id]')];
+const dots=[...document.querySelectorAll('.nd')];
+const sio=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){const i=secs.indexOf(e.target);dots.forEach((d,j)=>d.classList.toggle('on',i===j));}});
+},{threshold:0.3,rootMargin:'-10% 0px -10% 0px'});
+secs.forEach(s=>sio.observe(s));
+const rio=new IntersectionObserver((entries,obs)=>{
+  entries.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('in'),i*55); obs.unobserve(e.target); } });
+},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rio.observe(el));
+document.querySelectorAll('.pcard-head').forEach(head=>{
+  const card=head.closest('.pcard');
+  head.addEventListener('click',()=>{
+    const open=card.classList.contains('open');
+    document.querySelectorAll('.pcard').forEach(c=>{ c.classList.remove('open'); c.querySelector('.pcard-head').setAttribute('aria-expanded','false'); });
+    if(!open){ card.classList.add('open'); head.setAttribute('aria-expanded','true'); }
+  });
   head.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); head.click(); } });
 });
 
@@ -76,3 +852,16 @@ document.querySelectorAll('[data-carousel]').forEach(carousel=>{
 const briefForm=document.getElementById('briefForm');
 briefForm.addEventListener('submit',e=>{
   e.preventDefault();
+  const data=Object.fromEntries(new FormData(briefForm));
+  const request={...data,id:Date.now(),createdAt:new Date().toISOString(),status:'No tomado'};
+  const requests=JSON.parse(localStorage.getItem('spaRequests')||'[]');
+  requests.unshift(request);
+  localStorage.setItem('spaRequests',JSON.stringify(requests));
+  const message=`Hola Santiago, soy ${data.name}.%0A%0AServicio: ${data.service}%0AFecha estimada: ${data.deadline||'A definir'}%0AContacto: ${data.contact}%0A%0AIdea: ${data.idea}`;
+  document.getElementById('formStatus').textContent='Solicitud preparada. Abriendo WhatsApp…';
+  window.open(`https://wa.me/5492646303313?text=${encodeURI(message)}`,'_blank','noopener');
+});
+
+</script>
+</body>
+</html>
